@@ -37,8 +37,8 @@ const menuItems = [
     icon: ShoppingCart,
   },
   {
-    title: "Suprimentos",
-    url: "/suprimentos",
+    title: "Produtos",
+    url: "/produtos",
     icon: Package,
   },
   {
