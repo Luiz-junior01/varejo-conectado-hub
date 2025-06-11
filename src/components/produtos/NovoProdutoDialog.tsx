@@ -22,11 +22,14 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { TablesInsert } from "@/integrations/supabase/types";
 
 interface NovoProdutoDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
+
+type ProdutoInsert = TablesInsert<"produtos">;
 
 export function NovoProdutoDialog({ open, onOpenChange }: NovoProdutoDialogProps) {
   const [nome, setNome] = useState("");
@@ -41,7 +44,7 @@ export function NovoProdutoDialog({ open, onOpenChange }: NovoProdutoDialogProps
   const queryClient = useQueryClient();
 
   const createProdutoMutation = useMutation({
-    mutationFn: async (produto: any) => {
+    mutationFn: async (produto: ProdutoInsert) => {
       const { data, error } = await supabase
         .from('produtos')
         .insert([produto])
@@ -89,13 +92,13 @@ export function NovoProdutoDialog({ open, onOpenChange }: NovoProdutoDialogProps
       return;
     }
 
-    const produto = {
+    const produto: ProdutoInsert = {
       nome,
       codigo,
       categoria,
       preco: parseFloat(preco),
       estoque: parseInt(estoque),
-      descricao,
+      descricao: descricao || null,
       status
     };
 

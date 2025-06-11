@@ -15,17 +15,9 @@ import {
 } from "@/components/ui/table";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-interface Produto {
-  id: string;
-  nome: string;
-  codigo: string;
-  categoria: string;
-  preco: number;
-  estoque: number;
-  status: string;
-  created_at: string;
-}
+type Produto = Tables<"produtos">;
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -133,7 +125,7 @@ export function ListaProdutos() {
                   <TableCell className="font-medium">{produto.nome}</TableCell>
                   <TableCell>{produto.categoria}</TableCell>
                   <TableCell className="font-semibold">
-                    {produto.preco.toLocaleString('pt-BR', {
+                    {Number(produto.preco).toLocaleString('pt-BR', {
                       style: 'currency',
                       currency: 'BRL'
                     })}
