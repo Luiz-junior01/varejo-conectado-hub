@@ -61,7 +61,7 @@ export const RelatoriosFinanceiros = () => {
         .from('movimentacoes_financeiras')
         .select(`
           valor,
-          categoria:categorias_financeiras(nome)
+          categoria:categoria_id(nome)
         `)
         .eq('tipo', 'despesa')
         .eq('status', 'pago')

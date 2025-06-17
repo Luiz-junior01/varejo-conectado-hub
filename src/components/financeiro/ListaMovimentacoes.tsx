@@ -25,9 +25,9 @@ export const ListaMovimentacoes = () => {
         .from('movimentacoes_financeiras')
         .select(`
           *,
-          categoria:categorias_financeiras(nome),
-          conta:contas_financeiras(nome),
-          cliente:clientes(nome)
+          categoria:categoria_id(nome),
+          conta:conta_id(nome),
+          cliente:cliente_id(nome)
         `)
         .order('data_vencimento', { ascending: false });
 
