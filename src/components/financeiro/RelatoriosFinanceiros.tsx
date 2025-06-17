@@ -61,7 +61,7 @@ export const RelatoriosFinanceiros = () => {
         .from('movimentacoes_financeiras')
         .select(`
           valor,
-          categoria:categoria_id(nome)
+          categorias_financeiras!categoria_id(nome)
         `)
         .eq('tipo', 'despesa')
         .eq('status', 'pago')
@@ -70,7 +70,7 @@ export const RelatoriosFinanceiros = () => {
       const categoriesMap = new Map();
       
       despesas?.forEach(despesa => {
-        const nomeCategoria = despesa.categoria?.nome || 'Sem categoria';
+        const nomeCategoria = despesa.categorias_financeiras?.nome || 'Sem categoria';
         const valorAtual = categoriesMap.get(nomeCategoria) || 0;
         categoriesMap.set(nomeCategoria, valorAtual + Number(despesa.valor));
       });

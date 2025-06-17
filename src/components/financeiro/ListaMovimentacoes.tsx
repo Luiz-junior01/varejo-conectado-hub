@@ -25,9 +25,9 @@ export const ListaMovimentacoes = () => {
         .from('movimentacoes_financeiras')
         .select(`
           *,
-          categoria:categoria_id(nome),
-          conta:conta_id(nome),
-          cliente:cliente_id(nome)
+          categorias_financeiras!categoria_id(nome),
+          contas_financeiras!conta_id(nome),
+          clientes!cliente_id(nome)
         `)
         .order('data_vencimento', { ascending: false });
 
@@ -171,9 +171,9 @@ export const ListaMovimentacoes = () => {
                 <TableCell>
                   <div>
                     <div className="font-medium">{movimentacao.descricao}</div>
-                    {movimentacao.categoria && (
+                    {movimentacao.categorias_financeiras && (
                       <div className="text-sm text-muted-foreground">
-                        {movimentacao.categoria.nome}
+                        {movimentacao.categorias_financeiras.nome}
                       </div>
                     )}
                   </div>
@@ -187,7 +187,7 @@ export const ListaMovimentacoes = () => {
                   {new Date(movimentacao.data_vencimento).toLocaleDateString('pt-BR')}
                 </TableCell>
                 <TableCell>{getStatusBadge(movimentacao.status)}</TableCell>
-                <TableCell>{movimentacao.conta?.nome}</TableCell>
+                <TableCell>{movimentacao.contas_financeiras?.nome}</TableCell>
                 <TableCell>
                   {movimentacao.status === 'pendente' && (
                     <Button
